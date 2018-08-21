@@ -38,6 +38,7 @@ DETACHED="\u27a6"
 CROSS="\u2718"
 LIGHTNING="\u26a1"
 GEAR="\u2699"
+CLOUD="\u2601"
 
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
@@ -76,7 +77,7 @@ prompt_context() {
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
     prompt_segment $PRIMARY_FG cyan " %(!.%{%F{yellow}%}.)$user"
     prompt_segment $PRIMARY_FG default "@"
-    [ -n "$SSH_CONNECTION" ] && prompt_segment $PRIMARY_FG red "%m " || prompt_segment $PRIMARY_FG gray "%m "
+    [[ -n "$SSH_CONNECTION" ]] && prompt_segment $PRIMARY_FG red "%m " || prompt_segment $PRIMARY_FG gray "%m "
   fi
 }
 
@@ -120,6 +121,7 @@ prompt_status() {
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}$CROSS"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}$LIGHTNING"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR"
+  [[ -n "$SSH_CONNECTION" ]] && symbols+="%{%F{blue}%}$CLOUD"
 
   [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default " $symbols "
 }
