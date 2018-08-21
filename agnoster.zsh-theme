@@ -76,7 +76,7 @@ prompt_context() {
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
     prompt_segment $PRIMARY_FG cyan " %(!.%{%F{yellow}%}.)$user"
     prompt_segment $PRIMARY_FG default "@"
-    prompt_segment $PRIMARY_FG gray "%m "
+    [ -n "$SSH_CONNECTION" ] && prompt_segment $PRIMARY_FG red "%m " || prompt_segment $PRIMARY_FG gray "%m "
   fi
 }
 
