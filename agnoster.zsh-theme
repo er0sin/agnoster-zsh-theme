@@ -74,7 +74,9 @@ prompt_context() {
   local user=`whoami`
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
-    prompt_segment $PRIMARY_FG default " %(!.%{%F{yellow}%}.)$user@%m "
+    prompt_segment $PRIMARY_FG cyan " %(!.%{%F{yellow}%}.)$user"
+    prompt_segment $PRIMARY_FG default "@"
+    prompt_segment $PRIMARY_FG gray "%m "
   fi
 }
 
